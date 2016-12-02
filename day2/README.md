@@ -1,6 +1,6 @@
-### [--- Day 2: Bathroom Security ---](http://adventofcode.com/2016/day/2)
+# [--- Day 2: Bathroom Security ---](http://adventofcode.com/2016/day/2)
 
---- Part One ---
+### --- Part One ---
 
 You arrive at Easter Bunny Headquarters under cover of darkness. However, you left in such a rush that you forgot to use the bathroom! Fancy office buildings like this one usually have keypad locks on their bathrooms, so you search the front desk for the code.
 
@@ -38,19 +38,19 @@ So, in this example, the bathroom code is 1985.
 
 Your puzzle input is the instructions from the document you found at the front desk. What is the bathroom code?
 
---- Part Two ---
+### --- Part Two ---
 
 You finally arrive at the bathroom (it's a several minute walk from the lobby so visitors can behold the many fancy conference rooms and water coolers on this floor) and go to punch in the code. Much to your bladder's dismay, the keypad is not at all like you imagined it. Instead, you are confronted with the result of hundreds of man-hours of bathroom-keypad-design meetings:
 
->    1
+> _ _ 1 _ _
 
->  2 3 4
+> _ 2 3 4 _
 
->5 6 7 8 9
+> 5 6 7 8 9
 
->  A B C
+> _ A B C _
 
->    D
+> _ _ D _ _
 
 You still start at "5" and stop when you're at an edge, but given the same instructions as above, the outcome is very different:
 
