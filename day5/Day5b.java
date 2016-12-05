@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.security.*;
 
-public class Day5a
+public class Day5b
 {
     private static MessageDigest md;
 
@@ -20,19 +20,27 @@ public class Day5a
         }
         String doorID = args[0];
         char[] password = new char[8];
+        Arrays.fill(password, ' ');
         int index = 0;
-        int lettersCount = 0;
-        while(lettersCount < 8)
+        // int lettersCount = 0;
+        while(spacesLeft(password))
         {
             // if(index % 1000000 == 0) {System.out.println("Index: "+ index);}
             // String hexedMD5 = hex(md5(doorID + index));
             String md5 = md5(doorID + index);
-            if(md5.startsWith("00000"))
+            char at5 = md5.charAt(5);
+            try
             {
-                password[lettersCount] = md5.charAt(5);
-                System.out.print(password[lettersCount] + "");
-                lettersCount++;
-            }
+                int at5Index = Integer.parseInt("" + at5);
+                if(md5.startsWith("00000") && at5Index >= 0 && at5Index < 8 && password[at5Index] == ' ')
+                {
+                    password[at5Index] = md5.charAt(6);
+                    System.out.println(new String(password));
+                    // System.out.print(password[lettersCount] + "");
+                    // lettersCount++;
+                }
+            } catch(Exception e){ /* do nothing */ }
+
             index++;
         }
         // System.out.println(new String(password));
@@ -59,8 +67,18 @@ public class Day5a
         return buffer.toString();
     }
 
+    public static boolean spacesLeft(char[] pwd)
+    {
+        for(int i = 0; i < pwd.length; i++)
+        {
+            if(pwd[i] == ' ') {return true;}
+        }
+        return false;
+    }
+
     public static void usage()
     {
-        System.out.println("USAGE: java Day5a doorID");
+        System.out.println("USAGE: java Day5b doorID");
     }
+
 }
