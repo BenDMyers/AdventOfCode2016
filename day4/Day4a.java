@@ -21,7 +21,7 @@ public class Day4a
         {
             String line = scan.nextLine();
             String[] tokens = line.split("-");
-            String checksum = tokens[tokens.length - 1].substring(tokens[tokens.length - 1].indexOf("["), tokens[tokens.length - 1].indexOf("]"));
+            String checksum = tokens[tokens.length - 1].substring(tokens[tokens.length - 1].indexOf("[") + 1, tokens[tokens.length - 1].indexOf("]"));
             int id = -1;
             try
             {
