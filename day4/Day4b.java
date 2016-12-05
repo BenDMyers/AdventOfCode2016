@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Day4aTake2
+public class Day4b
 {
     public static void main(String[] args)
     {
@@ -15,7 +15,7 @@ public class Day4aTake2
             System.exit(0);
         }
 
-        int idSum = 0;
+        // int idSum = 0;
 
         while(scan.hasNextLine())
         {
@@ -53,12 +53,39 @@ public class Day4aTake2
                 }
             }
             if(valid) {
-                idSum += id;
+                // idSum += id;
                 // System.out.println(id + " IS VALID");
+                System.out.println(shift(tokens, id).replaceAll("null", "") + " " + id);
             }
         }
 
-        System.out.println("" + idSum);
+        // System.out.println("" + idSum);
+    }
+
+    public static String shift(String[] tokens, int id)
+    {
+        String[] shiftedTokens = new String[tokens.length - 1];
+        for(int i = 0; i < tokens.length - 1; i++)
+        {
+            for(int j = 0; j < tokens[i].length(); j++)
+            {
+                char orig = tokens[i].charAt(j);
+                char shiftBy = (char)(id % 26);
+                char shift = (char)(orig + shiftBy);
+                if(shift > 'z')
+                {
+                    shift -= 26;
+                }
+                shiftedTokens[i] += "" + shift;
+            }
+        }
+        String shifted = "";
+        for(int i = 0; i < shiftedTokens.length; i++)
+        {
+            shifted += shiftedTokens[i];
+            if(i != shiftedTokens.length - 1) {shifted += " ";}
+        }
+        return shifted;
     }
 
     public static char getMostFrequentChar(String str)

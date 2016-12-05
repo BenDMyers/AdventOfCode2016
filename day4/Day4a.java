@@ -1,12 +1,11 @@
-import java.io.File;
 import java.util.*;
-// import java.util.HashMap;
+import java.io.*;
 
 public class Day4a
 {
     public static void main(String[] args)
     {
-        Scanner scan = new Scanner("bogus");
+        Scanner scan = new Scanner("BOGUS DECLARATION TO APPEASE THE COMPILER GODS");
         try
         {
             scan = new Scanner(new File("input.txt"));
@@ -17,68 +16,68 @@ public class Day4a
         }
 
         int idSum = 0;
-        while (scan.hasNextLine())
+
+        while(scan.hasNextLine())
         {
             String line = scan.nextLine();
+            // System.out.println(line);
             String[] tokens = line.split("-");
-            String checksum = tokens[tokens.length - 1].substring(tokens[tokens.length - 1].indexOf("[") + 1, tokens[tokens.length - 1].indexOf("]"));
             int id = -1;
             try
             {
                 id = Integer.parseInt(tokens[tokens.length - 1].substring(0, tokens[tokens.length - 1].indexOf("[")));
+                // System.out.println("" + id);
             } catch(Exception e)
             {
                 e.printStackTrace();
+                System.exit(0);
             }
-
-            // Get letter frequencies
-            Map<Character, Integer> counts = new HashMap<Character, Integer>();
-            for(int i = 0; i < 26; i++)
-            {
-                counts.put((char)(i+'a'), 0);
-            }
+            String checksum = tokens[tokens.length - 1].substring(tokens[tokens.length - 1].indexOf("[") + 1, tokens[tokens.length - 1].indexOf("]"));
+            // System.out.println(checksum);
+            String name = "";
             for(int i = 0; i < tokens.length - 1; i++)
             {
-                for(int j = 0; j < tokens[i].length(); j++)
+                name += tokens[i];
+            }
+            boolean valid = true;
+            for(int i = 0; (i < 5 && valid); i++)
+            {
+                char mostFrequent = getMostFrequentChar(name);
+                if(checksum.charAt(i) != mostFrequent)
                 {
-                    counts.put(tokens[i].charAt(j), counts.get(tokens[i].charAt(j) + 1));
+                    valid = false;
+                }
+                else
+                {
+                    name = name.replace("" + mostFrequent, "");
                 }
             }
-
-            // Sort letter frequencies
-            List<Map.Entry<Character, Integer>> countsList = new ArrayList<Map.Entry<Character, Integer>>(counts.entrySet());
-            Collections.sort(countsList, new Comparator<Map.Entry<Character, Integer>>() {
-                public int compare(Map.Entry<Character, Integer> o1, Map.Entry<Character, Integer> o2)
-                {
-                    // return o2.getValue().compareTo(o1.getValue());
-                    if(o1.getValue().equals(o2.getValue()))
-                    {
-                        return o1.getKey().compareTo(o2.getKey());
-                    }
-                    else
-                    {
-                        return o1.getValue().compareTo(o2.getValue());
-                    }
-                }
-            });
-            // printMap(counts);
-            printList(countsList);
+            if(valid) {
+                idSum += id;
+                // System.out.println(id + " IS VALID");
+            }
         }
+
+        System.out.println("" + idSum);
     }
 
-    public static void printMap(Map<Character, Integer> map)
+    public static char getMostFrequentChar(String str)
     {
-        for (Map.Entry<Character, Integer> entry : map.entrySet())
+        char mostFrequent = ' ';
+        int maxFrequency = 0;
+        for(int i = 0; i < 26; i++)
         {
-            System.out.print(entry.getKey() + entry.getValue() + " ");
+            int frequency = 0;
+            for(int j = 0; j < str.length(); j++)
+            {
+                if(str.charAt(j) == (char)(i + 'a')) { frequency++; }
+            }
+            if(frequency > maxFrequency)
+            {
+                maxFrequency = frequency;
+                mostFrequent = (char)(i + 'a');
+            }
         }
-    }
-
-    public static void printList(List<Map.Entry<Character, Integer>> list)
-    {
-        for(int i = 0; i < list.size(); i++)
-        {
-            System.out.println(list.get(i).getKey() + list.get(i).getValue() + " ");
-        }
+        return mostFrequent;
     }
 }
