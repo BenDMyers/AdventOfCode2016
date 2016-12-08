@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Day8a
+public class Day8
 {
     private static boolean[][] screen = new boolean[6][50];
 
@@ -86,7 +86,9 @@ public class Day8a
             }
         }
 
-        System.out.println(lit + " lit pixels");
+        printScreen();
+
+        System.out.println("\n" + lit + " lit pixels");
     }
 
     public static void rect(int wide, int tall)
@@ -148,5 +150,18 @@ public class Day8a
             }
         }
         screen = newScreen;
+    }
+
+    public static void printScreen()
+    {
+        for(int i = 0; i < screen.length; i++)
+        {
+            for(int j = 0; j < screen[i].length; j++)
+            {
+                if(screen[i][j]) {System.out.print("#");}
+                else {System.out.print(".");}
+            }
+            System.out.println();
+        }
     }
 }
