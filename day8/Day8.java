@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Day8
 {
+    // 2D representation of screen layout where true means lit
     private static boolean[][] screen = new boolean[6][50];
 
     public static void main(String[] args)
@@ -17,6 +18,7 @@ public class Day8
             System.exit(0);
         }
 
+        // Read each line
         while(scan.hasNextLine())
         {
             String line = scan.nextLine();
@@ -36,7 +38,7 @@ public class Day8
                     e.printStackTrace();
                     System.exit(0);
                 }
-                System.out.println("RECTANGLING FROM " + a + " TO " + b);
+                // System.out.println("RECTANGLING FROM " + a + " TO " + b);
                 rect(a, b);
             }
             else if(line.startsWith("rotate row y="))
@@ -91,6 +93,11 @@ public class Day8
         System.out.println("\n" + lit + " lit pixels");
     }
 
+    /**
+     * Sets the rectangle in the top-left of given width and height to be lit
+     * @param width of rectangle of lights to turn on
+     * @param tall height of rectangle of lights to turn on
+     */
     public static void rect(int wide, int tall)
     {
         for(int i = 0; i < tall; i++)
@@ -102,6 +109,11 @@ public class Day8
         }
     }
 
+    /**
+     * Rotates the given row by the given amount
+     * @param row row to row-tate. Ha. I'm funny.
+     * @param by amount to row-tate by. Ha. I'm still funny.
+     */
     public static void rotateRow(int row, int by)
     {
         boolean[][] newScreen = new boolean[6][50];
@@ -127,6 +139,11 @@ public class Day8
         screen = newScreen;
     }
 
+    /**
+     * Rotates the given column by the given amount.
+     * @param col column to rotate
+     * @param by amount to rotate by
+     */
     public static void rotateCol(int col, int by)
     {
         boolean[][] newScreen = new boolean[6][50];
@@ -152,6 +169,9 @@ public class Day8
         screen = newScreen;
     }
 
+    /**
+     * Prints the screen layout where '#' is a lit light and '.' is an unlit light.
+     */
     public static void printScreen()
     {
         for(int i = 0; i < screen.length; i++)
